@@ -38,6 +38,7 @@ const AddPresentation = (props) =>{
           const { data } = await axios.post(`${API_URL}/presentation`, params);
           setErrorMsg('');
           setPresentationsList(data);
+          props.history.push('/presentations');
         } catch (error) {
           error.response && setErrorMsg(error.response.data);
         }

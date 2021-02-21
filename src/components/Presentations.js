@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_URL } from '../utils/constants';
-import { Carousel } from 'react-bootstrap';
+import { Carousel, Card, Container, Row, Col } from 'react-bootstrap';
 
 const PresentationList = () => {
   const [filesList, setFilesList] = useState([]);
@@ -25,24 +25,37 @@ const PresentationList = () => {
   return (
     <div className="files-container">
       {errorMsg && <p className="errorMsg">{errorMsg}</p>}
-      
+      <Container>
+    <Row>
       {filesList.length > 0 ? 
           (
             filesList.map(
               ({ _id, title, description, files }) => (
-                <Carousel>
-                    <Carousel.Item>
-                        <img
-                        className="d-block w-100"
-                        src="holder.js/800x400?text=First slide&bg=373940"
-                        alt="First slide"
-                        />
-                        <Carousel.Caption>
-                        <h3>{title}</h3>
-                        <p>{description}</p>
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                </Carousel>
+                  <Col xs={6} md={4}>
+                    <Card style={{ width: '18rem' }}>
+                    <Carousel>
+                    {
+                    files.map((file)=>
+                        <Carousel.Item>
+                            <img
+                            className="d-block w-100"
+                            src={file}
+                            alt="First slide"
+                            />
+                            <Carousel.Caption>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                        )
+                    }
+                        </Carousel>
+                    <Card.Body>
+                    <Card.Title>{title}</Card.Title>
+                    <Card.Text>
+                        {description}
+                    </Card.Text>
+                    </Card.Body>
+                </Card>
+              </Col>
               )
             )
           ) : (
@@ -52,7 +65,8 @@ const PresentationList = () => {
               </td>
             </tr>
           )}
-      
+          </Row>
+      </Container>
     </div>
   );
 };
